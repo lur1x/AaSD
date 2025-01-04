@@ -1,0 +1,5 @@
+﻿  lw4.cpp
+C:\Users\esipo\source\repos\AaSD\lw4\lw4.cpp(17,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\esipo\source\repos\AaSD\lw4\lw4.cpp(166,1): warning C4715: ReadGraph: значение возвращается не при всех путях выполнения
+C:\Users\esipo\source\repos\AaSD\lw4\lw4.cpp(288,1): warning C4715: CheckFreeWorkspace: значение возвращается не при всех путях выполнения
+  lw4.vcxproj -> C:\Users\esipo\source\repos\AaSD\lw4\x64\Debug\lw4.exe

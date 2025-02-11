@@ -1,22 +1,24 @@
-﻿#include <iostream>
-#include <fstream>
+﻿#include <fstream>
+#include <iostream>
 #include <vector>
 #include <windows.h>
 #include <string>
 #include <sstream>
 #include <chrono>
+
 /* 19. Имеется N костей игры домино. На каждой кости имеются 2
 числа от 0 до 6. Кости могут повторяться.  Требуется  написать
 программу, которая будет определять максимальное число из цифр
 на костях цепочки, составленной по правилам домино из имеющихся
 костей. Время счета до 1 с.
-   Ввод. Первая строка входного файла содержит целое число N – 
+   Ввод. Первая строка входного файла содержит целое число N –
 количество костей (2 <= N <= 15). Следующие N строк содержат 2
 целых числа X и Y (0 <= X, Y <= 6), разделенные пробелом.
    Вывод. В выходной файл необходимо вывести максимальное целое
 число, цифры которого соответствуют значению костей в цепочке(11).
 Кириллов Дмитрий ПС22 VS2
 */
+
 struct TypeDominoes {
     int firstDigit;
     int secondDigit;
@@ -121,7 +123,7 @@ void PrintListDominoes(const std::vector<std::vector<TypeDominoes*>>& ListDomino
         for (const TypeDominoes* domino : ListDominoes[i]) {
             std::cout << "(" << domino->firstDigit << ", " << domino->secondDigit << " used: " << domino->used << ") ";
         }
-        std::cout << std::endl; 
+        std::cout << std::endl;
     }
 }
 
@@ -135,10 +137,10 @@ void CompareNums(std::string& tempNum, std::string& maxNum) {
             else if (tempNum[i] < maxNum[i]) {
                 break;
             }
-            
+
         }
-    } 
-    else if (tempNum.length() > maxNum.length()){
+    }
+    else if (tempNum.length() > maxNum.length()) {
         maxNum = tempNum;
 
     }
@@ -149,30 +151,30 @@ void MakeMaxNumRecursivly(std::string& maxNum, std::string tempNum, std::vector<
         if (d->used == false) {
             d->used = true;
 
-            
+
             if (d->firstDigit == lastNum) {
-                newNum = tempNum  + std::to_string(d->firstDigit) + std::to_string(d->secondDigit);
+                newNum = tempNum + std::to_string(d->firstDigit) + std::to_string(d->secondDigit);
             }
             else {
                 newNum = tempNum + std::to_string(d->secondDigit) + std::to_string(d->firstDigit);
             }
-            
+
             CompareNums(newNum, maxNum);
             MakeMaxNumRecursivly(maxNum, newNum, Dominoes, ListDominoes, d->firstDigit == lastNum ? d->secondDigit : d->firstDigit);
 
-            d->used = false; 
+            d->used = false;
         }
-        
+
     }
-    
-    
+
+
 }
 
 std::string MakeMaxNum(std::vector<TypeDominoes*>& Dominoes, std::vector<std::vector<TypeDominoes*>>& ListDominoes) {
     std::string maxNum = "";
 
     for (auto& d : Dominoes) {
-        d->used = true; 
+        d->used = true;
         if (d->firstDigit != d->secondDigit) {
 
             std::string newNum = std::to_string(d->firstDigit) + std::to_string(d->secondDigit);
@@ -197,8 +199,8 @@ std::string MakeMaxNum(std::vector<TypeDominoes*>& Dominoes, std::vector<std::ve
 }
 
 std::string FindMaxNumFromDominoes(std::ifstream& fInput) {
-    
-    std::vector<TypeDominoes*> Dominoes; 
+
+    std::vector<TypeDominoes*> Dominoes;
     std::vector<std::vector<TypeDominoes*>> ListDominoes(7);
 
     if (!ReadDominoes(fInput, Dominoes, ListDominoes)) {
@@ -215,7 +217,7 @@ std::string FindMaxNumFromDominoes(std::ifstream& fInput) {
 
 
     for (auto& domino : Dominoes) {
-        delete domino; 
+        delete domino;
     }
 
     return maxNum;
